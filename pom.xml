@@ -14,7 +14,7 @@
 
     <name>Syringe Maven Plugin</name>
     <description>Supporting Maven plugin for Syringe library</description>
-    <url>https://github.com/avast-open/syringe-maven-plugin</url>
+    <url>https://github.com/avast/syringe-maven-plugin</url>
     <licenses>
         <license>
             <name>The BSD 3-Clause License</name>
@@ -45,9 +45,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git@github.com:avast-open/syringe-maven-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:avast-open/syringe-maven-plugin.git</developerConnection>
-        <url>git@github.com:avast-open/syringe-maven-plugin.git</url>
+        <connection>scm:git:git@github.com:avast/syringe-maven-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:avast/syringe-maven-plugin.git</developerConnection>
+        <url>git@github.com:avast/syringe-maven-plugin.git</url>
     </scm>
 
     <properties>
