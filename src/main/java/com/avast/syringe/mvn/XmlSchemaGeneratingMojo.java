@@ -20,7 +20,7 @@ public class XmlSchemaGeneratingMojo
     /**
      * Location of the file.
      *
-     * @parameter expression="src/main/resources"
+     * @parameter default-value="src/main/resources"
      * @required
      */
     protected File resourcesDirectory;
