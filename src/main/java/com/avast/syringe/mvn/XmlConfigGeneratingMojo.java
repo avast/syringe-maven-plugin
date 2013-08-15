@@ -35,7 +35,7 @@ public class XmlConfigGeneratingMojo
     /**
      * Location of the config directory.
      *
-     * @parameter expression="src/config"
+     * @parameter default-value="src/config"
      * @required
      */
     private File configDirectory;

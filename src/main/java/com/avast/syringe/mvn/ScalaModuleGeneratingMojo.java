@@ -19,7 +19,7 @@ public class ScalaModuleGeneratingMojo
     /**
      * Location of the generated files.
      *
-     * @parameter expression="src/main/scala"
+     * @parameter default-value="src/main/scala"
      * @required
      */
     private File generatedClassesDirectory;
