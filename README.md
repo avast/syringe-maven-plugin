@@ -13,5 +13,5 @@ More information can be found in [Syringe wiki](https://github.com/avast-open/sy
 ```xml
 <groupId>com.avast</groupId>
 <artifactId>syringe-maven-plugin</artifactId>
-<version>1.1</version>
+<version>1.3.0</version>
 ```
