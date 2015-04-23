@@ -83,9 +83,10 @@ public abstract class ModuleScannerMojo extends AbstractMojo {
             }
         }));
 
-        URLClassLoader classLoader = new URLClassLoader(jarURLs.toArray(new URL[jarURLs.size()]),
-                ConfigProperty.class.getClassLoader());
-        List<Class> injectableClasses = (List<Class>) (Object) ReflectionUtils.forNames(injectableClassNames, classLoader);
+        URLClassLoader classLoader = new URLClassLoader(jarURLs.toArray(new URL[jarURLs.size()]), ConfigProperty.class.getClassLoader());
+        ClassLoader[] loaders = new ClassLoader[] {classLoader};
+
+        List<Class> injectableClasses = (List<Class>) (Object) ReflectionUtils.forNames(injectableClassNames, loaders);
 
         processClasses(injectableClasses);
     }
