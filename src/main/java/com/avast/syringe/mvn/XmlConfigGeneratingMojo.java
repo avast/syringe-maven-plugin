@@ -11,7 +11,11 @@ import org.reflections.Reflections;
 import org.reflections.scanners.AbstractScanner;
 import org.reflections.util.ConfigurationBuilder;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -22,8 +26,7 @@ import java.util.List;
  *
  * @goal create
  */
-public class XmlConfigGeneratingMojo
-        extends AbstractMojo {
+public class XmlConfigGeneratingMojo extends AbstractMojo {
     /**
      * Location of the file.
      *
@@ -122,14 +125,14 @@ public class XmlConfigGeneratingMojo
         // Scan classes and all jars
         final List<String> candidates = new ArrayList<String>();
         new Reflections(new ConfigurationBuilder().
-                addUrls(jarURLs).setScanners(new AbstractScanner() {
+            addUrls(jarURLs).setScanners(new AbstractScanner() {
             @Override
             public void scan(Object cls) {
                 if ((cls instanceof ClassFile)) {
                     ClassFile classFile = (ClassFile) cls;
 
                     if (XmlSchemaGeneratingMojo.isInjectable(classFile, getLog()) &&
-                            (classFile.getName().equals(configClassName) || classFile.getName().endsWith(configClassName))) {
+                        (classFile.getName().equals(configClassName) || classFile.getName().endsWith(configClassName))) {
                         candidates.add(classFile.getName());
                     }
                 }
@@ -147,7 +150,7 @@ public class XmlConfigGeneratingMojo
         String fullClassName = candidates.get(0);
 
         URLClassLoader classLoader = new URLClassLoader(jarURLs.toArray(new URL[jarURLs.size()]),
-                ConfigProperty.class.getClassLoader());
+            ConfigProperty.class.getClassLoader());
         Class configClass = ReflectionUtils.forName(fullClassName, classLoader);
         generateToFile(configClass);
     }

@@ -14,8 +14,7 @@ import java.util.List;
  * @goal generate
  * @phase prepare-package
  */
-public class XmlSchemaGeneratingMojo
-        extends ModuleScannerMojo {
+public class XmlSchemaGeneratingMojo extends ModuleScannerMojo {
 
     /**
      * Location of the file.

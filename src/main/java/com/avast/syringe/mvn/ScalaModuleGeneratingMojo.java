@@ -13,8 +13,7 @@ import java.util.Properties;
  * @goal generate-module
  * @phase process-classes
  */
-public class ScalaModuleGeneratingMojo
-        extends ModuleScannerMojo {
+public class ScalaModuleGeneratingMojo extends ModuleScannerMojo {
 
     /**
      * Location of the generated files.
@@ -81,7 +80,7 @@ public class ScalaModuleGeneratingMojo
             }
 
             ModuleGenerator.getInstance().generate(modulePackage, moduleDesc, moduleName, injectableClasses,
-                    moduleTraits, builderTraits, writer);
+                moduleTraits, builderTraits, writer);
         } finally {
             writer.close();
         }

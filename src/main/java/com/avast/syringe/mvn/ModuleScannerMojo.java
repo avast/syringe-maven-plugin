@@ -74,7 +74,7 @@ public abstract class ModuleScannerMojo extends AbstractMojo {
         final List<String> injectableClassNames = new ArrayList<String>();
         // Scan classes only
         new Reflections(new ConfigurationBuilder().
-                addUrls(classesDirectory.toURI().toURL()).setScanners(new AbstractScanner() {
+            addUrls(classesDirectory.toURI().toURL()).setScanners(new AbstractScanner() {
             @Override
             public void scan(Object cls) {
                 if ((cls instanceof ClassFile) && isInjectable((ClassFile) cls, getLog())) {
@@ -84,7 +84,7 @@ public abstract class ModuleScannerMojo extends AbstractMojo {
         }));
 
         URLClassLoader classLoader = new URLClassLoader(jarURLs.toArray(new URL[jarURLs.size()]), ConfigProperty.class.getClassLoader());
-        ClassLoader[] loaders = new ClassLoader[] {classLoader};
+        ClassLoader[] loaders = new ClassLoader[]{classLoader};
 
         List<Class> injectableClasses = (List<Class>) (Object) ReflectionUtils.forNames(injectableClassNames, loaders);
 
@@ -148,8 +148,8 @@ public abstract class ModuleScannerMojo extends AbstractMojo {
 
     private static boolean findAnnotation(ClassFile cf, Log log, AttributeInfo classAttribute, String annotationName) {
         AnnotationsAttribute visible = new AnnotationsAttribute(classAttribute.getConstPool(),
-                classAttribute.getName(),
-                classAttribute.get());
+            classAttribute.getName(),
+            classAttribute.get());
 
         for (Annotation ann : visible.getAnnotations()) {
             if (annotationName.equals(ann.getTypeName())) {
