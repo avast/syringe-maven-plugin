@@ -124,25 +124,49 @@ public abstract class ModuleScannerMojo extends AbstractMojo {
     static boolean isInjectable(ClassFile cf, Log log) {
         log.debug("Analyzing " + cf.getName());
 
+        boolean result;
         try {
-            AttributeInfo classAttribute = cf.getAttribute(AnnotationsAttribute.visibleTag);
-            if (classAttribute != null) {
-                if (findAnnotation(cf, log, classAttribute, "com.avast.syringe.config.ConfigBean")) return true;
-            }
-
-            List<FieldInfo> fields = cf.getFields();
-            for (FieldInfo field : fields) {
-                AttributeInfo fieldAttribute = field.getAttribute(AnnotationsAttribute.visibleTag);
-                if (fieldAttribute != null) {
-                    if (findAnnotation(cf, log, fieldAttribute, "com.avast.syringe.config.ConfigProperty")) return true;
-                }
-            }
-
-            log.debug(cf.getName() + " IS NOT an injection target");
+            result = isConfigPropertyAnnotationPresent(cf, log) || isNamedAnnotationPresent(cf, log);
         } catch (Throwable t) {
             log.error(t);
+            result = false;
+        }
+        if (!result) {
+            log.debug(cf.getName() + " IS NOT an injection target");
         }
 
+        return result;
+    }
+
+    private static boolean isConfigPropertyAnnotationPresent(ClassFile cf, Log log) {
+
+        AttributeInfo classAttribute = cf.getAttribute(AnnotationsAttribute.visibleTag);
+        if (classAttribute != null) {
+            if (findAnnotation(cf, log, classAttribute, "com.avast.syringe.config.ConfigBean")) {
+                return true;
+            }
+        }
+
+        List<FieldInfo> fields = cf.getFields();
+        for (FieldInfo field : fields) {
+            AttributeInfo fieldAttribute = field.getAttribute(AnnotationsAttribute.visibleTag);
+            if (fieldAttribute != null) {
+                if (findAnnotation(cf, log, fieldAttribute, "com.avast.syringe.config.ConfigProperty")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean isNamedAnnotationPresent(ClassFile cf, Log log) {
+
+        AttributeInfo classAttribute = cf.getAttribute(AnnotationsAttribute.visibleTag);
+        if (classAttribute != null) {
+            if (findAnnotation(cf, log, classAttribute, "javax.inject.Named")) {
+                return true;
+            }
+        }
         return false;
     }
 
